@@ -1,6 +1,6 @@
 # test-project
 
-> A Vue.js project
+> Ninja Smoothies
 
 ## Build Setup
 
