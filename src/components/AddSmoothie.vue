@@ -4,7 +4,7 @@
 	<form @submit.prevent="addSmoothie">
 	<div class="field title">
 	<label for="title">Smoothie Title</label>
-	<input type="text" name="title" v-model=title> 
+	<input type="text" name="title" v-model="title"> 
 	</div>
 	<div v-for="(ingredient, index) in ingredients" :key="index" class="field">
 		<label for="ingredient">Ingredient:</label>
@@ -34,14 +34,14 @@ export default {
 			title: null,
 			another: null,
 			ingredients: [],
-			feedback:null,
+			feedback: null,
 			slug: null
 		};
 	},
-	methods: { 
-		addSmoothie(){
+	methods: {
+		addSmoothie() {
 			//console.log(this.title, this.ingredients);
-			if(this.title){
+			if (this.title) {
 				this.feedback = null;
 				//create slug
 				this.slug = slugify(this.title, {
@@ -50,34 +50,35 @@ export default {
 					lower: true //all letters in lower case
 				});
 				//console.log(this.slug);
-				db.collection('smoothies').add({
-					title: this.title,
-					ingredients: this.ingredients,
-					slug: this.slug
-				})
-				.then(() => {
-					this.$router.push({name: 'Index'});
-				})
-				.catch(error => {
-					console.log(error);
-				})
-			}else{
-				this.feedback = 'Please enter a Smoothie title!'
+				db.collection('smoothies')
+					.add({
+						title: this.title,
+						ingredients: this.ingredients,
+						slug: this.slug
+					})
+					.then(() => {
+						this.$router.push({ name: 'Index' });
+					})
+					.catch(error => {
+						console.log(error);
+					});
+			} else {
+				this.feedback = 'Please enter a Smoothie title!';
 			}
 		},
-		addIngredient(){
-			if(this.another){
+		addIngredient() {
+			if (this.another) {
 				this.ingredients.push(this.another);
 				console.log(this.ingredients);
 				this.another = null;
 				this.feedback = null;
-			}else{
+			} else {
 				this.feedback = 'Please enter an ingredient!';
 			}
 		},
-		deleteIngredient(ing){
+		deleteIngredient(ing) {
 			this.ingredients = this.ingredients.filter(ingredient => {
-			return ingredient != ing;
+				return ingredient != ing;
 			});
 		}
 	}
@@ -85,19 +86,19 @@ export default {
 </script>
 
 <style>
-.add-smoothie{
+.add-smoothie {
 	margin-top: 60px;
 	padding: 20px;
 	max-width: 500px;
 }
-.add-smoothie h2{
+.add-smoothie h2 {
 	font-size: 2em;
 	margin: 20px auto;
 }
-.add-ingredient .field{
+.add-ingredient .field {
 	margin: 20px auto;
 }
-.delete{
+.delete {
 	right: 0;
 	bottom: 16px;
 	color: #aaa;
