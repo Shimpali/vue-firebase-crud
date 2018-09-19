@@ -1,4 +1,4 @@
-# test-project
+# ninja-smoothies
 
 > Ninja Smoothies
 
